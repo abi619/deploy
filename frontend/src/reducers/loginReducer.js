@@ -1,5 +1,4 @@
 import {LOGIN_FAILURE, LOGIN_SUCCESS, LOGIN_LOADER, OTP_LOADER, OTP_SUCCESS, OTP_FAILURE} from '../constants/loginConstants'
-
 export const userLoginReducer = (state= {}, action) => {
     switch(action.type) {
         case LOGIN_LOADER:
