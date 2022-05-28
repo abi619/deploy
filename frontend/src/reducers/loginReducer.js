@@ -11,6 +11,7 @@ export const userLoginReducer = (state= {}, action) => {
                 loading: false,
                 userInfo: action.payload,
                 userNumber: action.info,
+                userEmail: action.mail,
                 success: true
             }
         case LOGIN_FAILURE:

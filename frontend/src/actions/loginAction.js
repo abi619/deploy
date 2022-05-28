@@ -1,7 +1,7 @@
 import {LOGIN_LOADER, LOGIN_SUCCESS, LOGIN_FAILURE, OTP_LOADER, OTP_FAILURE, OTP_SUCCESS} from '../constants/loginConstants'
 import axios from 'axios'
 
-export const userLoginAction = (number) => async (dispatch) => {
+export const userLoginAction = (number, email) => async (dispatch) => {
     try {
         dispatch({
             type: {
@@ -10,6 +10,7 @@ export const userLoginAction = (number) => async (dispatch) => {
         })
 
         console.log(number)  
+        console.log(email)
 
         const config = {
             headers: {
@@ -17,12 +18,13 @@ export const userLoginAction = (number) => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.post('http://127.0.0.1:3001/api/user/signup', {number})
+        const {data} = await axios.post('http://127.0.0.1:3001/api/user/signup', {number, email})
 
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data,
-            info: number
+            info: number,
+            mail: email
         })
 
     } catch (error) {
@@ -34,7 +36,7 @@ export const userLoginAction = (number) => async (dispatch) => {
     }
 }
 
-export const otpAction = (number, otp) => async (dispatch) => {
+export const otpAction = (number, otp, mail) => async (dispatch) => {
     try {
         dispatch({
             type: {
@@ -50,7 +52,7 @@ export const otpAction = (number, otp) => async (dispatch) => {
             }
         }
 
-        const {data} = await axios.post('http://127.0.0.1:3001/api/user/signup/verify', {number, otp})
+        const {data} = await axios.post('http://127.0.0.1:3001/api/user/signup/verify', {number, otp, mail})
 
         dispatch({
             type: OTP_SUCCESS,

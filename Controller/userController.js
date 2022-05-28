@@ -10,7 +10,6 @@ const {Otp} = require('../Model/otpModel')
 //functions
 module.exports.signUp = asyncHandler(async (req, res) => { 
     const user = await User.findOne({number: req.body.number})
-    //if(user) return res.status(400).send({message: 'user already registered'})
     if(user) {
         res.status(400)
         throw new Error('user already registered')
@@ -21,7 +20,7 @@ module.exports.signUp = asyncHandler(async (req, res) => {
         const number = req.body.number
         console.log(OTP)
     
-        const newResponse = await fast2sms.sendMessage({authorization: '62BNF0b3ZtOwprdkHCj4zeyX8KnLaP9cAoEfYGlWRgsI5hSDmVU2MPSoCLpft534kHEbsghRGY8W6ZTD', message: `verification code ${OTP}`, numbers: [number]})
+        const newResponse = await fast2sms.sendMessage({authorization: 'K2kwGo1QRigeqraAEDS0dvpfyI6UxLZu4c7CXmTJM8Y3FlHtVjTd3pbI1DByk5qhFSesmXGZJwfrMnlO', message: `verification code ${OTP}`, numbers: [number]})
         console.log(newResponse)
     
         const otp = new Otp({number: number, otp: OTP})
@@ -38,7 +37,10 @@ module.exports.verifyOtp = asyncHandler(async (req, res) => {
     const rightOtpFind = otpHolder[otpHolder.length - 1]
     const validUser = await bcrypt.compare(req.body.otp, rightOtpFind.otp)
     if(rightOtpFind.number === req.body.number && validUser) {
-        const user = new User(_.pick(req.body, ["number"]))
+        // const user = new User(_.pick(req.body, ["number"], req.body))
+        console.log(req.body.number)
+        console.log(req.body.mail)
+        const user = new User({number: req.body.number, email: req.body.mail})
         const token = user.generateJWT()
         const result = await user.save()
         const OTPDelete = await Otp.deleteMany({
