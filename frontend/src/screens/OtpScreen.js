@@ -20,32 +20,8 @@ const OtpScreen = ({history}) => {
             history.push('/success')
         }
     }, [succeed, history])
-    return (
-        // <div className= 'mt-3 parent-container'>
-        //     <div className= 'home-space'>
-        //     <h2>Otp Verify</h2>
-        //         {error && (
-        //             <Alert className='text-center' variant= 'danger'>{error}</Alert>
-        //         )}   
-        //     </div>
-        //     <div className="d-flex align-items-center justify-content-center box">
-        //     <Form className= 'p-3'>
-        //         <Row>
-        //             <Col md={8}>
-        //                 <Form.Group className="mb-3" controlId="formBasicEmail">
-        //                     <Form.Label>pls check your phone for otp</Form.Label>
-        //                     <Form.Control type="number" placeholder="Enter the otp" onChange= {(e) => setNewOtp(e.target.value)}/>
-        //                 </Form.Group>
-        //             </Col>
-        //         </Row>
-        //         <Button onClick= {(e) => submitHandler(e)}>verify🚀</Button>
-        //     </Form>
-        //     </div> 
-        // </div>
-
+    return (  
         <div className="otp-parent-container p-3">
-      {/* <h2 className="home-space">Login</h2> */}
-      {/* <h2>login</h2> */}
      <div className="otp-container">
         {error && (
             <Alert className='text-center' variant= 'danger'>{error}</Alert>
@@ -62,7 +38,7 @@ const OtpScreen = ({history}) => {
                       style={{marginBottom: "4px"}}
                     />
               </Form.Group> 
-              <Button size="lg"  style={{color:"white", backgroundColor: "black", borderLeftColor: "black", borderRightColor: "black", borderTopColor: "black", borderBottomColor: "black", width: "100%", fontSize: 18, marginTop: 24  }}  onClick={(e) => submitHandler(e)}>lets go</Button>
+              <Button size="lg"  style={{color:"white", backgroundColor: "black", borderLeftColor: "black", borderRightColor: "black", borderTopColor: "black", borderBottomColor: "black", width: "100%", fontSize: 18, marginTop: 24  }}  onClick={(e) => submitHandler(e)}>Verify</Button>
           </Form>
           {console.log(userEmail)}
       </div>

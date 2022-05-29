@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Button, Row, Col, Alert, Container, Image } from "react-bootstrap";
 import { userLoginAction } from "../actions/loginAction";
+import { Formik } from 'formik';
 import axios from "axios";
 
 const LoginScreen = ({ history }) => {
@@ -11,9 +12,17 @@ const LoginScreen = ({ history }) => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { success, userNumber, error } = userLogin;
+  const [newError, setNewError] = useState(error)
   const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch(userLoginAction(num, uMail));
+    if(num === "") {
+      setNewError("please enter a number")
+    } else if(!uMail) {
+      setNewError("please enter mail id")
+    } else {
+      setNewError("")
+      dispatch(userLoginAction(num, uMail));
+    }
   };
 
   useEffect(() => {
@@ -24,18 +33,6 @@ const LoginScreen = ({ history }) => {
 
   return (
     <div className="parent-container p-3">
-      {/* <h2 className="home-space">Login</h2> */}
-      {/* {success && (
-        <Alert className="text-center" variant="success">
-          ✔️✔️ otp sent successfully
-        </Alert>
-      )} */}
-      {/* {error && (
-        <Alert className="text-center" variant="danger" style={{display: "block"}}>
-          {error}
-        </Alert>
-      )} */}
-      {/* <h2>login</h2> */}
      <div className="image-container">
      <Image src="/images/vybesblack.png" width={150} height={150} rounded className="margin-top-fin ml-3" fluid/>
      </div>
@@ -72,13 +69,17 @@ const LoginScreen = ({ history }) => {
                     We'll never share your info with anyone else.
                   </Form.Text>
             </Form.Group>
-            <Button size="lg"  style={{color:"white", backgroundColor: "black", borderLeftColor: "black", borderRightColor: "black", borderTopColor: "black", borderBottomColor: "black", width: "100%", fontSize: 18, marginTop: 24  }}  onClick={(e) => submitHandler(e)}>lets go🚀</Button>
+            <Button size="lg"  style={{color:"white", backgroundColor: "black", borderLeftColor: "black", borderRightColor: "black", borderTopColor: "black", borderBottomColor: "black", width: "100%", fontSize: 18, marginTop: 24  }}  onClick={(e) => submitHandler(e)}>Let's Go</Button>
             <div className="d-grid gap-2 mt-3">
               {error && (
                 <Button variant="outline-danger">{error}</Button>
               )}
+              {newError && (
+                <Button variant="outline-danger">{newError}</Button>
+              )}
             </div>
           </Form>
+          
       </div>
     </div>
   );

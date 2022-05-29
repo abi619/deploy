@@ -20,7 +20,7 @@ module.exports.signUp = asyncHandler(async (req, res) => {
         const number = req.body.number
         console.log(OTP)
     
-        const newResponse = await fast2sms.sendMessage({authorization: 'K2kwGo1QRigeqraAEDS0dvpfyI6UxLZu4c7CXmTJM8Y3FlHtVjTd3pbI1DByk5qhFSesmXGZJwfrMnlO', message: `verification code ${OTP}`, numbers: [number]})
+        const newResponse = await fast2sms.sendMessage({authorization: 'K2kwGo1QRigeqraAEDS0dvpfyI6UxLZu4c7CXmTJM8Y3FlHtVjTd3pbI1DByk5qhFSesmXGZJwfrMnlO', message: `Use ${OTP} as your OTP to verify your Vybes account.`, numbers: [number]})
         console.log(newResponse)
     
         const otp = new Otp({number: number, otp: OTP})
